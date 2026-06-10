@@ -1,0 +1,38 @@
+microstrain_inertial_driver:
+  ros__parameters:
+    # ── Connection ─────────────────────────────────────────────────────
+    port: /dev/ttyACM0
+    baudrate: 115200
+
+    # ── Disable PPS (not supported on AHRS variant) ────────────────────
+    pps_source: 0
+    filter_pps_source: 0
+
+    # ── Magnetic declination (Berlin: ~2.3°) ───────────────────────────
+    filter_declination_source: 1        # 1 = manual
+    filter_declination: 0.23            # radians (~13° for Berlin area)
+
+    # ── Heading source ──────────────────────────────────────────────────
+    filter_heading_source: 1            # 1 = magnetometer
+    filter_auto_heading_alignment_selector: 1
+
+    # ── Output rates ────────────────────────────────────────────────────
+    imu_data_rate: 500                  # Hz — raw IMU
+    filter_data_rate: 100              # Hz — EKF filter output
+
+    # ── Covariances (tuned for tactical-grade CV7) ──────────────────────
+    # Lower = trust this sensor more
+    # Orientation (rad²) — CV7 is very precise
+    imu_orientation_cov: [0.0001, 0.0, 0.0,
+                           0.0, 0.0001, 0.0,
+                           0.0, 0.0, 0.0001]
+
+    # Angular velocity (rad²/s²)
+    imu_gyro_cov: [0.000001, 0.0, 0.0,
+                   0.0, 0.000001, 0.0,
+                   0.0, 0.0, 0.000001]
+
+    # Linear acceleration (m²/s⁴)
+    imu_accel_cov: [0.0001, 0.0, 0.0,
+                    0.0, 0.0001, 0.0,
+                    0.0, 0.0, 0.0001]

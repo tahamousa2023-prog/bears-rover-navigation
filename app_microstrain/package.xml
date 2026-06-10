@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<?xml-model href="http://download.ros.org/schema/package_format3.xsd" schematypens="http://www.w3.org/2001/XMLSchema"?>
+<package format="3">
+  <name>app_microstrain</name>
+  <version>1.0.0</version>
+  <description>
+    BEARS Rover — MicroStrain 3DM-CV7-AHRS IMU driver package.
+    Provides launch, config, logging and visualization for the CV7 AHRS sensor.
+  </description>
+  <maintainer email="navigation@bears-space.de">BEARS Navigation Team</maintainer>
+  <license>MIT</license>
+
+  <depend>microstrain_inertial_driver</depend>
+  <depend>microstrain_inertial_msgs</depend>
+  <depend>sensor_msgs</depend>
+  <depend>geometry_msgs</depend>
+  <depend>tf2_ros</depend>
+
+  <export>
+    <build_type>ament_python</build_type>
+  </export>
+</package>

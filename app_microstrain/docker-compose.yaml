@@ -1,0 +1,39 @@
+services:
+  ros:
+    build:
+      context: .
+      dockerfile: Dockerfile.template
+      args:
+        ROS_DISTRO: humble
+    container_name: template_ros_container
+    tty: true
+    stdin_open: true
+
+    # Mount your project directories
+    volumes:
+      - .:/workspace/src/app_template
+      - ./data:/workspace/data
+      - ./config:/workspace/config
+      - /tmp/.X11-unix:/tmp/.X11-unix:rw
+
+    environment:
+      - ROS_DISTRO=humble
+      - RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+      - DEBIAN_FRONTEND=noninteractive
+      - DISPLAY=${DISPLAY}
+      - QT_X11_NO_MITSHM=1
+      - XDG_RUNTIME_DIR=/tmp/runtime-root
+
+    # Allows GUI tools (rviz, rqt, etc.)
+    network_mode: host
+    privileged: true
+
+  
+    working_dir: /workspace
+
+
+    
+    entrypoint: ["/bin/bash", "-c", "source /opt/ros/humble/setup.bash && exec bash"]
+
+
+    command: ros2 launch app_template template.launch.py
